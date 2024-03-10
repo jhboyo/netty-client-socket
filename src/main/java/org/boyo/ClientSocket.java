@@ -16,7 +16,7 @@ public class ClientSocket {
         this.socket = socket;
     }
 
-    public void sendFiexedLength(int messageLength) {
+    public void sendFixedLength(int messageLength) {
         int delimiterLength = 256;
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -30,6 +30,7 @@ public class ClientSocket {
         try {
             OutputStream os = socket.getOutputStream();
 
+            //서버가 정해진 길이만큼 데이터가 들어오기를 기다리는지 확인하기 위해 바이트 배열을 delimiterLength씩 나누어 전송합니다.
             for (int i = 0; i < messageLength / delimiterLength; i++) {
                 byte[] sending = Arrays.copyOfRange(totalData, i * delimiterLength, (i + 1) * delimiterLength);
                 System.out.println("sending... " + (i + 1));
@@ -42,6 +43,7 @@ public class ClientSocket {
             throw new RuntimeException(e);
         }
 
+        // 보낸 데이터를 그대로 전송하는지 확인하기 위해 InputStream으로 데이터를 받습니다.
         System.out.println("Receiving message");
         try {
             InputStream is = socket.getInputStream();

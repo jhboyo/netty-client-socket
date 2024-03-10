@@ -23,7 +23,7 @@ public class NonSslSocket {
             socket.connect(socketAddress);
 
             ClientSocket clientSocket = new ClientSocket(socket);
-            clientSocket.sendFiexedLength(messageLength);
+            clientSocket.sendFixedLength(messageLength);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
